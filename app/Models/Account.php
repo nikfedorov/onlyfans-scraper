@@ -11,4 +11,13 @@ class Account extends Model
     use HasFactory;
 
     public $incrementing = false;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+        'username',
+    ];
 }
