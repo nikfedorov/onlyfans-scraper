@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Account;
 use Illuminate\Database\Seeder;
 
 class AccountSeeder extends Seeder
@@ -11,6 +12,11 @@ class AccountSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        for ($i = 0; $i < 10; $i++) {
+            Account::factory()
+                ->withAllData()
+                ->withRealText()
+                ->create();
+        }
     }
 }
