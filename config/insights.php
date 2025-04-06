@@ -15,6 +15,7 @@ use SlevomatCodingStandard\Sniffs\Commenting\UselessFunctionDocCommentSniff;
 use SlevomatCodingStandard\Sniffs\Functions\FunctionLengthSniff;
 use SlevomatCodingStandard\Sniffs\Functions\UnusedParameterSniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff;
+use SlevomatCodingStandard\Sniffs\Namespaces\UnusedUsesSniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\UseSpacingSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff;
@@ -112,6 +113,11 @@ return [
         UnusedParameterSniff::class => [
             'exclude' => [
                 'app/Http/Resources',
+            ],
+        ],
+        UnusedUsesSniff::class => [
+            'exclude' => [
+                'app/Http/Controllers/Api/SearchController',
             ],
         ],
     ],

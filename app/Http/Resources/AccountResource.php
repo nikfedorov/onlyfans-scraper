@@ -18,9 +18,32 @@ class AccountResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            /**
+             * The account's username.
+             *
+             * @example "johndoe"
+             */
             'username' => $this->username,
+
+            /**
+             * The account's name.
+             *
+             * @example "John Doe"
+             */
             'name' => $this->name,
+
+            /**
+             * Number of account's likes.
+             *
+             * @example 100
+             */
             'likes' => $this->likes,
+
+            /**
+             * The account's bio.
+             *
+             * @example "Lorem ipsum dolor sit amet."
+             */
             'bio' => $this->bio,
         ];
     }

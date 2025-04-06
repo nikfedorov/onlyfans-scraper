@@ -22,7 +22,16 @@ class SearchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'q' => ['required', 'string', 'min:1'],
+            /**
+             * The search query string.
+             *
+             * @example "model"
+             */
+            'q' => [
+                'required',
+                'string',
+                'min:1',
+            ],
         ];
     }
 }

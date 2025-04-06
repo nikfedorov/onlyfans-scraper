@@ -35,7 +35,7 @@ class ScrapeJob implements ShouldQueue
             return;
         }
 
-        // update or create the account in the database with the username as unique identifier
+        // update or create account with username as unique identifier
         Account::updateOrCreate(
             ['username' => $this->username],
             [
