@@ -18,6 +18,7 @@ class ScrapeJob implements ShouldQueue
     public function __construct(
         public string $username,
     ) {
+        $this->onQueue('scrape');
     }
 
     /**
