@@ -12,7 +12,9 @@ use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use PHP_CodeSniffer\Standards\PEAR\Sniffs\WhiteSpace\ObjectOperatorIndentSniff;
 use SlevomatCodingStandard\Sniffs\Classes\ForbiddenPublicPropertySniff;
 use SlevomatCodingStandard\Sniffs\Commenting\UselessFunctionDocCommentSniff;
+use SlevomatCodingStandard\Sniffs\Functions\FunctionLengthSniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff;
+use SlevomatCodingStandard\Sniffs\Namespaces\UseSpacingSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSniff;
@@ -89,11 +91,15 @@ return [
         PropertyTypeHintSniff::class,
         ReturnTypeHintSniff::class,
         UselessFunctionDocCommentSniff::class,
+        UseSpacingSniff::class,
     ],
 
     'config' => [
         ForbiddenPrivateMethods::class => [
             'title' => 'The usage of private methods is not idiomatic in Laravel.',
+        ],
+        FunctionLengthSniff::class => [
+            'maxLinesLength' => 30,
         ],
         LineLengthSniff::class => [
             'lineLimit' => 120,
