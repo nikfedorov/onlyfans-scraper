@@ -32,8 +32,8 @@ if [ "$APP_KEY" == "" ]; then
     vendor/bin/sail artisan key:generate
 fi
 
-echo -e "\n${bold}> sail artisan migrate:fresh --seed${normal}"
-vendor/bin/sail artisan migrate:fresh --seed --force --no-interaction
+echo -e "\n${bold}> sail artisan migrate:fresh${normal}"
+vendor/bin/sail artisan migrate:fresh --force --no-interaction
 
 echo -e "\n${bold}> sail npm install${normal}"
 vendor/bin/sail npm install
