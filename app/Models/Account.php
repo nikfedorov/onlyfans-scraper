@@ -4,8 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
 
+/**
+ * @property Carbon $created_at
+ */
 class Account extends Model
 {
     /** @use HasFactory<\Database\Factories\AccountFactory> */
@@ -31,6 +35,22 @@ class Account extends Model
     ];
 
     /**
+     * Get the value used to index the model.
+     */
+    public function getScoutKey(): mixed
+    {
+        return $this->username;
+    }
+
+    /**
+     * Get the key name used to index the model.
+     */
+    public function getScoutKeyName(): mixed
+    {
+        return 'username';
+    }
+
+    /**
      * Get the indexable data array for the model.
      *
      * @return array<string, mixed>
@@ -38,10 +58,19 @@ class Account extends Model
     public function toSearchableArray()
     {
         return [
-            'username' => (string) $this->username,
-            'name' => (string) $this->name,
-            'bio' => (string) $this->bio,
+            'id' => $this->username,
+            'username' => $this->username,
+            'name' => $this->name,
+            'bio' => $this->bio,
             'created_at' => $this->created_at->timestamp,
+        ];
+    }
+
+    protected function casts()
+    {
+        return [
+            'likes' => 'integer',
+            'created_at' => 'datetime',
         ];
     }
 }

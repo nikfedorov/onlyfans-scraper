@@ -13,6 +13,7 @@ use PHP_CodeSniffer\Standards\PEAR\Sniffs\WhiteSpace\ObjectOperatorIndentSniff;
 use SlevomatCodingStandard\Sniffs\Classes\ForbiddenPublicPropertySniff;
 use SlevomatCodingStandard\Sniffs\Commenting\UselessFunctionDocCommentSniff;
 use SlevomatCodingStandard\Sniffs\Functions\FunctionLengthSniff;
+use SlevomatCodingStandard\Sniffs\Functions\UnusedParameterSniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\UseSpacingSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff;
@@ -107,6 +108,11 @@ return [
         ],
         ObjectOperatorIndentSniff::class => [
             'multilevel' => true,
+        ],
+        UnusedParameterSniff::class => [
+            'exclude' => [
+                'app/Http/Resources',
+            ],
         ],
     ],
 
