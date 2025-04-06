@@ -4,6 +4,11 @@ use App\Exceptions\ScrapeFailed;
 use App\Jobs\ScrapeJob;
 use App\Models\Account;
 use Facades\App\Services\ScraperService;
+use Illuminate\Support\Facades\Queue;
+
+beforeEach(function () {
+    Queue::fake();
+});
 
 it('scrapes new account', function () {
 
@@ -18,7 +23,7 @@ it('scrapes new account', function () {
         ->andReturn($account);
 
     // act
-    ScrapeJob::dispatch($account->username);
+    new ScrapeJob($account->username)->handle();
 
     // assert
     expect(Account::first())
@@ -45,7 +50,7 @@ it('scrapes existing account', function () {
         ->andReturn($factoryAccount);
 
     // act
-    ScrapeJob::dispatch($account->username);
+    new ScrapeJob($account->username)->handle();
 
     // assert
     expect(Account::first())
@@ -71,9 +76,34 @@ it('fails to scrape', function () {
         ));
 
     // act
-    ScrapeJob::dispatch($account->username);
+    new ScrapeJob($account->username)->handle();
 
     // assert
     expect(Account::count())
         ->toBe(0);
 });
+
+it('relaunches the job', function ($likes, $delay) {
+
+    // arrange
+    $account = Account::factory()
+        ->likes($likes)
+        ->make();
+
+    // mock
+    $scraper = ScraperService::shouldReceive('scrape')
+        ->with($account->username)
+        ->andReturn($account);
+
+    // act
+    new ScrapeJob($account->username)->handle();
+
+    // assert
+    Queue::assertPushed(ScrapeJob::class, function ($job) use ($account, $delay) {
+        return $job->username === $account->username
+            && $job->delay->isSameMinute(now()->addHours($delay));
+    });
+})->with([
+    'regular account' => [10, 72],
+    'popular account' => [101, 24],
+]);

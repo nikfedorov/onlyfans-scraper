@@ -42,4 +42,14 @@ class AccountFactory extends Factory
             'username' => $username,
         ]);
     }
+
+    /**
+     * Model with a specific likes number.
+     */
+    public function likes(int $likes): self
+    {
+        return $this->state([
+            'likes' => $likes,
+        ]);
+    }
 }

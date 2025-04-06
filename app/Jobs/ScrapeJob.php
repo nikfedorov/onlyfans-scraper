@@ -4,7 +4,7 @@ namespace App\Jobs;
 
 use App\Exceptions\ScrapeFailed;
 use App\Models\Account;
-use App\Services\ScraperService;
+use Facades\App\Services\ScraperService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 
@@ -24,11 +24,11 @@ class ScrapeJob implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(ScraperService $scraper): void
+    public function handle(): void
     {
         // scrape the account
         try {
-            $account = $scraper->scrape($this->username);
+            $account = ScraperService::scrape($this->username);
         } catch (ScrapeFailed $e) {
             $this->fail($e);
 
@@ -44,5 +44,9 @@ class ScrapeJob implements ShouldQueue
                 'bio' => $account->bio,
             ]
         );
+
+        // relaunch the job
+        ScrapeJob::dispatch($this->username)
+            ->delay(now()->addHours($account->likes > 100 ? 24 : 72));
     }
 }
