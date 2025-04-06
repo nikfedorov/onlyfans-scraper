@@ -1,11 +1,11 @@
 services:
     laravel.test:
         build:
-            context: './vendor/laravel/sail/runtimes/8.4'
+            context: ./vendor/laravel/sail/runtimes/8.4
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
-        image: 'sail-8.4/app'
+        image: sail-8.4/app
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
@@ -26,6 +26,8 @@ services:
                 condition: service_healthy
             redis:
                 condition: service_healthy
+            selenium:
+                condition: service_started
             typesense:
                 condition: service_started
     mysql:
@@ -69,6 +71,14 @@ services:
             retries: 3
             timeout: 5s
             interval: 5s
+    selenium:
+        image: selenium/standalone-chromium
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        volumes:
+            - '/dev/shm:/dev/shm'
+        networks:
+            - sail
     typesense:
         image: 'typesense/typesense:27.1'
         ports:
@@ -87,18 +97,9 @@ services:
                 - wget
                 - '--no-verbose'
                 - '--spider'
-                - 'http://127.0.0.1:8108/health'
+                - 'http://localhost:8108/health'
             retries: 5
             timeout: 7s
-            interval: 5s
-    selenium:
-        image: 'selenium/standalone-chromium'
-        extra_hosts:
-            - 'host.docker.internal:host-gateway'
-        volumes:
-            - '/dev/shm:/dev/shm'
-        networks:
-            - sail
 networks:
     sail:
         driver: bridge

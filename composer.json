@@ -12,8 +12,11 @@
         "php": "^8.2",
         "laravel/framework": "^12.0",
         "laravel/horizon": "^5.31",
+        "laravel/scout": "^10.14",
         "laravel/tinker": "^2.10.1",
-        "php-webdriver/webdriver": "^1.15"
+        "php-webdriver/webdriver": "^1.15",
+        "symfony/http-client": "^7.2",
+        "typesense/typesense-php": "^5.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

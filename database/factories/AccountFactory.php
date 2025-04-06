@@ -17,7 +17,7 @@ class AccountFactory extends Factory
     public function definition(): array
     {
         return [
-            'username' => $this->faker->userName(),
+            'username' => fake()->userName(),
         ];
     }
 
@@ -27,9 +27,19 @@ class AccountFactory extends Factory
     public function withAllData(): self
     {
         return $this->state([
-            'name' => $this->faker->name(),
-            'likes' => $this->faker->numberBetween(0, 10000),
-            'bio' => $this->faker->text(100),
+            'name' => fake()->name(),
+            'likes' => fake()->numberBetween(0, 10000),
+            'bio' => fake()->text(100),
+        ]);
+    }
+
+    /**
+     * Model that has real text.
+     */
+    public function withRealText(): self
+    {
+        return $this->state([
+            'bio' => fake()->realText(300),
         ]);
     }
 
