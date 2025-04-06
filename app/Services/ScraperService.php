@@ -52,9 +52,9 @@ class ScraperService
                 message: 'Scrape failed: '.$e->getMessage(),
                 previous: $e,
             );
+        } finally {
+            $driver->quit();
         }
-
-        $driver->quit();
 
         return $account;
     }

@@ -29,11 +29,11 @@ class Scrape extends Command
             label: 'Username',
             hint: 'Enter an OnlyFans username to scrape',
             placeholder: 'e.g. belledelphine',
-            required: true
+            validate: ['username' => 'required|regex:/^[a-z0-9.]+$/i']
         );
 
         // dispatch a scrape job
-        $this->info("Scraping {$username}...");
+        $this->info("Dispatching a job to scrape {$username}...");
         ScrapeJob::dispatch($username);
 
         return Command::SUCCESS;
