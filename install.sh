@@ -47,4 +47,4 @@ vendor/bin/sail npm run build
 echo -e "\n${bold}Done!${normal}"
 echo -e "You can now access your project at http://localhost"
 echo -e "\nDon't forget to run the command for all your development needs:"
-echo -e "${bold}sail composer dev${normal}"
+echo -e "${bold}./vendor/bin/sail composer dev${normal}"

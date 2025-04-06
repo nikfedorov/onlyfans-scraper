@@ -105,5 +105,5 @@ it('relaunches the job', function ($likes, $delay) {
     });
 })->with([
     'regular account' => [10, 72],
-    'popular account' => [101, 24],
+    'popular account' => [100_001, 24],
 ]);

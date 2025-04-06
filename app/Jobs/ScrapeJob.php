@@ -47,6 +47,6 @@ class ScrapeJob implements ShouldQueue
 
         // relaunch the job
         ScrapeJob::dispatch($this->username)
-            ->delay(now()->addHours($account->likes > 100 ? 24 : 72));
+            ->delay(now()->addHours($account->likes > 100_000 ? 24 : 72));
     }
 }
