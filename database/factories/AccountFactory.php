@@ -21,12 +21,25 @@ class AccountFactory extends Factory
         ];
     }
 
+    /**
+     * Model that has all data.
+     */
     public function withAllData(): self
     {
         return $this->state([
             'name' => $this->faker->name(),
             'likes' => $this->faker->numberBetween(0, 10000),
             'bio' => $this->faker->text(100),
+        ]);
+    }
+
+    /**
+     * Model with a specific username.
+     */
+    public function username(string $username): self
+    {
+        return $this->state([
+            'username' => $username,
         ]);
     }
 }

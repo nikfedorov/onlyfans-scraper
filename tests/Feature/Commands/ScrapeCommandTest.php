@@ -22,7 +22,7 @@ it('queues a scrape job', function () {
     expect($result)->toBe(Command::SUCCESS);
 
     Queue::assertPushed(ScrapeJob::class, function ($job) use ($account) {
-        return $job->account->username === $account->username;
+        return $job->username === $account->username;
     });
 });
 
@@ -43,6 +43,6 @@ it('handles existing account', function () {
     expect($result)->toBe(Command::SUCCESS);
 
     Queue::assertPushed(ScrapeJob::class, function ($job) use ($account) {
-        return $job->account->username === $account->username;
+        return $job->username === $account->username;
     });
 });

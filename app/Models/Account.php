@@ -12,6 +12,10 @@ class Account extends Model
 
     public $incrementing = false;
 
+    protected $primaryKey = 'username';
+
+    protected $keyType = 'string';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -19,5 +23,8 @@ class Account extends Model
      */
     protected $fillable = [
         'username',
+        'name',
+        'likes',
+        'bio',
     ];
 }

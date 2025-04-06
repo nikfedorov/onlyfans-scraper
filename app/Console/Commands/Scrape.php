@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Jobs\ScrapeJob;
-use App\Models\Account;
 use Illuminate\Console\Command;
 
 use function Laravel\Prompts\text;
@@ -34,10 +33,8 @@ class Scrape extends Command
         );
 
         // dispatch a scrape job
-        $account = Account::firstOrCreate(['username' => $username]);
-        ScrapeJob::dispatchSync($account);
-
-        $this->info("Scrape job dispatched for {$username}...");
+        $this->info("Scraping {$username}...");
+        ScrapeJob::dispatch($username);
 
         return Command::SUCCESS;
     }
