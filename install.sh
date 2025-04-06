@@ -32,6 +32,9 @@ if [ "$APP_KEY" == "" ]; then
     vendor/bin/sail artisan key:generate
 fi
 
+echo -e "\n${bold}> sail artisan storage:link${normal}"
+vendor/bin/sail artisan storage:link
+
 echo -e "\n${bold}> sail artisan migrate:fresh${normal}"
 vendor/bin/sail artisan migrate:fresh --force --no-interaction
 
