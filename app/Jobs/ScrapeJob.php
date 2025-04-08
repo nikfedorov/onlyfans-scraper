@@ -5,10 +5,11 @@ namespace App\Jobs;
 use App\Exceptions\ScrapeFailed;
 use App\Models\Account;
 use Facades\App\Services\ScraperService;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 
-class ScrapeJob implements ShouldQueue
+class ScrapeJob implements ShouldBeUnique, ShouldQueue
 {
     use Queueable;
 
@@ -48,5 +49,13 @@ class ScrapeJob implements ShouldQueue
         // relaunch the job
         ScrapeJob::dispatch($this->username)
             ->delay(now()->addHours($account->likes > 100_000 ? 24 : 72));
+    }
+
+    /**
+     * The unique identifier for the job.
+     */
+    public function uniqueId(): string
+    {
+        return $this->username;
     }
 }

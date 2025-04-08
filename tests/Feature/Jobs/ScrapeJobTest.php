@@ -107,3 +107,17 @@ it('relaunches the job', function ($likes, $delay) {
     'regular account' => [10, 72],
     'popular account' => [100_001, 24],
 ]);
+
+it('keeps one job per account', function () {
+
+    // arrange
+    $account = Account::factory()->make();
+
+    // act
+    ScrapeJob::dispatch($account->username);
+    ScrapeJob::dispatch($account->username);
+    ScrapeJob::dispatch(Account::factory()->make()->username);
+
+    // assert
+    Queue::assertPushed(ScrapeJob::class, 2);
+});
