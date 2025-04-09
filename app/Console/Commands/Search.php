@@ -48,8 +48,9 @@ class Search extends Command
             ->toArray();
 
         // show accounts as table
+        $this->info('Showing 10 most relevant accounts:');
         table(
-            headers: ['Username', 'Name', 'Likes', 'Bio'],
+            headers: ['Username', 'Name', 'Likes', 'Bio Excerpt'],
             rows: $accounts,
         );
 
