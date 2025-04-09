@@ -29,7 +29,7 @@ class Scrape extends Command
             label: 'Username',
             hint: 'Enter an OnlyFans username to scrape',
             placeholder: 'e.g. belledelphine',
-            validate: ['username' => 'required|regex:/^[a-z0-9.]+$/i']
+            validate: ['username' => 'required|regex:/^[a-z0-9._-]+$/i']
         );
 
         // dispatch a scrape job
